@@ -21,6 +21,7 @@
 #include <algorithm>
 #include <cassert>
 #include <deque>
+#include <future>
 #include <iosfwd>
 #include <memory>
 #include <ostream>
@@ -335,6 +336,46 @@ void Engine::trace_eval() const {
     verify_networks();
 
     sync_cout << "\n" << Eval::trace(p, *networks) << sync_endl;
+}
+
+int Engine::static_eval() const {
+    verify_networks();
+
+    Eval::NNUE::AccumulatorStack  accumulatorStack;
+    Eval::NNUE::AccumulatorCaches caches(*networks);
+    Value                         value = Eval::evaluate(*networks, pos, accumulatorStack, caches, 0);
+
+    // Eval::evaluate() is from side-to-move perspective; convert to white-side perspective.
+    value = pos.side_to_move() == WHITE ? value : -value;
+
+    return UCIEngine::to_cp(value, pos);
+}
+
+bool Engine::make_move(const std::string& move) {
+    auto m = UCIEngine::to_move(pos, move);
+
+    if (m == Move::none())
+        return false;
+
+    states->emplace_back();
+    pos.do_move(m, states->back());
+    return true;
+}
+
+std::pair<std::string, std::string> Engine::search_bestmove(Search::LimitsType limits) {
+    std::promise<std::pair<std::string, std::string>> resultPromise;
+    auto resultFuture = resultPromise.get_future();
+
+    auto originalOnBestmove = updateContext.onBestmove;
+    set_on_bestmove([&resultPromise](std::string_view bestmove, std::string_view ponder) {
+        resultPromise.set_value({std::string(bestmove), std::string(ponder)});
+    });
+
+    go(limits);
+    wait_for_search_finished();
+
+    set_on_bestmove(std::move(originalOnBestmove));
+    return resultFuture.get();
 }
 
 const OptionsMap& Engine::get_options() const { return options; }
