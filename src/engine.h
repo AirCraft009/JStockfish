@@ -95,6 +95,9 @@ class Engine {
     // utility functions
 
     void trace_eval() const;
+    int  static_eval() const;
+    bool make_move(const std::string& move);
+    std::pair<std::string, std::string> search_bestmove(Search::LimitsType limits);
 
     const OptionsMap& get_options() const;
     OptionsMap&       get_options();

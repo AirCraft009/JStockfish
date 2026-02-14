@@ -927,6 +927,7 @@ help:
 	echo "help                    > Display architecture details" && \
 	echo "profile-build           > standard build with profile-guided optimization" && \
 	echo "build                   > skip profile-guided optimization" && \
+	echo "build-jni               > build JNI shared library (libjstockfish.so)" && \
 	echo "net                     > Download the default nnue nets" && \
 	echo "strip                   > Strip executable" && \
 	echo "install                 > Install executable" && \
@@ -992,7 +993,7 @@ ifneq ($(SUPPORTED_ARCH), true)
 endif
 
 
-.PHONY: help analyze build profile-build strip install clean net \
+.PHONY: help analyze build build-jni profile-build strip install clean net \
 	objclean profileclean config-sanity \
 	icx-profile-use icx-profile-make \
 	gcc-profile-use gcc-profile-make \
@@ -1004,6 +1005,13 @@ analyze: net config-sanity objclean
 
 build: net config-sanity
 	$(MAKE) ARCH=$(ARCH) COMP=$(COMP) all
+
+
+build-jni: net config-sanity objclean
+	$(if $(JAVA_HOME),,$(error JAVA_HOME is not set))
+	$(MAKE) ARCH=$(ARCH) COMP=$(COMP) $(OBJS)
+	$(CXX) -fPIC -shared -o libjstockfish.so $(filter-out main.o,$(OBJS)) jni_stockfish.cpp \
+		-I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux $(CXXFLAGS) $(LDFLAGS)
 
 profile-build: net config-sanity objclean profileclean
 	@echo ""

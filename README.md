@@ -104,6 +104,26 @@ Detailed compilation instructions for all platforms can be found in our
 [documentation][wiki-compile-link]. Our wiki also has information about
 the [UCI commands][wiki-uci-link] supported by Stockfish.
 
+### JNI integration (JStockfish)
+
+This repository includes a direct JNI bridge so Java can call engine functions
+without UCI command parsing overhead. The JNI API supports:
+
+* setting a position using FEN and optional move list,
+* making a move on the current position,
+* getting static evaluation in centipawns, and
+* getting the best move at a requested depth.
+
+Build the JNI shared library from `src/`:
+
+```
+cd src
+JAVA_HOME=/path/to/jdk make build-jni
+```
+
+This produces `libjstockfish.so`. A matching Java wrapper is provided at
+`java/org/stockfish/StockfishJNI.java`.
+
 ## Terms of use
 
 Stockfish is free and distributed under the
