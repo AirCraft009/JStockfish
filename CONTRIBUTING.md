@@ -49,7 +49,7 @@ further discussion._
 - Provide a clear and concise description of the changes in the pull request
   description.
 
-_First time contributors should add their name to [AUTHORS](AUTHORS)._
+_First time contributors should add their name to [AUTHORS](stockfish/AUTHORS)._
 
 _Stockfish's development is not focused on adding new features. Thus any pull
 request introducing new features will potentially be closed without further
@@ -58,7 +58,7 @@ discussion._
 ## Code Style
 
 Changes to Stockfish C++ code should respect our coding style defined by
-[.clang-format](.clang-format). You can format your changes by running
+[.clang-format](stockfish/.clang-format). You can format your changes by running
 `make format`. This requires clang-format version 20 to be installed on your system.
 
 ## Navigate

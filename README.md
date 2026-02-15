@@ -117,12 +117,32 @@ without UCI command parsing overhead. The JNI API supports:
 Build the JNI shared library from `src/`:
 
 ```
-cd src
+cd stockfish/src
 JAVA_HOME=/path/to/jdk make build-jni
 ```
 
 This produces `libjstockfish.so`. A matching Java wrapper is provided at
 `src/main/java/org/stockfish/StockfishJNI.java`.
+
+There is also the maven package include it with 
+```
+<dependency>
+  <groupId>com.github.aircraft009</groupId>
+  <artifactId>jstockfish</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
+Then add the .so or .dll file to the project
+
+Compiling on Windows works similarly
+just set the JAVA_HOME var to your jdk path
+
+```
+cd stockfish/src
+make build-jni-windows
+```
+this builds the .dll
 
 ## Terms of use
 

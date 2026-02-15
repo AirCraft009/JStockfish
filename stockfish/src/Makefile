@@ -1013,6 +1013,19 @@ build-jni: net config-sanity objclean
 	$(CXX) -fPIC -shared -o libjstockfish.so $(filter-out main.o,$(OBJS)) jni_stockfish.cpp \
 		-I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux $(CXXFLAGS) $(LDFLAGS)
 
+build-jni-windows: net config-sanity objclean
+	$(if $(JAVA_HOME),,$(error JAVA_HOME is not set))
+	$(MAKE) ARCH=$(ARCH) COMP=$(COMP) $(OBJS)
+ifeq ($(target_windows),yes)
+	$(CXX) -shared -o jstockfish.dll $(filter-out main.o,$(OBJS)) jni_stockfish.cpp \
+		-I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/win32" \
+		$(CXXFLAGS) $(LDFLAGS)
+else
+	$(CXX) -fPIC -shared -o libjstockfish.so $(filter-out main.o,$(OBJS)) jni_stockfish.cpp \
+		-I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux \
+		$(CXXFLAGS) $(LDFLAGS)
+endif
+
 profile-build: net config-sanity objclean profileclean
 	@echo ""
 	@echo "Step 1/4. Building instrumented executable ..."

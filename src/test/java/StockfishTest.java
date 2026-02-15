@@ -1,10 +1,10 @@
 import org.stockfish.StockfishJNI;
 
 public class StockfishTest {
-    private StockfishJNI stockfishJNI = new StockfishJNI();
 
     @org.junit.Test
     public void testStaticEval(){
+        StockfishJNI stockfishJNI = new StockfishJNI();
         System.out.println(stockfishJNI.staticEvalCp());
     }
 }
