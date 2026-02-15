@@ -5,6 +5,7 @@ src/.depend
 
 /.idea
 /.vscode
+settings.xml
 
 # Built binary
 src/stockfish*
