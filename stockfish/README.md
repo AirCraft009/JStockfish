@@ -122,7 +122,7 @@ JAVA_HOME=/path/to/jdk make build-jni
 ```
 
 This produces `libjstockfish.so`. A matching Java wrapper is provided at
-`java/org/stockfish/StockfishJNI.java`.
+`src/main/java/org/stockfish/StockfishJNI.java`.
 
 ## Terms of use
 

@@ -5,7 +5,7 @@
 #include <mutex>
 #include <string>
 #include <vector>
-
+#include <optional>
 #include "bitboard.h"
 #include "engine.h"
 #include "position.h"
