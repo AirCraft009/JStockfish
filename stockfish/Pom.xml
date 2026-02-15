@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.aircraft009</groupId>
+    <artifactId>jstockfish</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub AirCraft009 Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/AirCraft009/JStockfish</url>
+        </repository>
+
+    </distributionManagement>
+
+    <properties>
+    </properties>
+
+    <build>
+    <plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+            <source>24</source>
+            <target>24</target>
+        </configuration>
+    </plugin>
+    </plugins>
+    </build>
+
+    <dependencies>
+    </dependencies>
+
+</project>
+
