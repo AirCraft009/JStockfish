@@ -3,6 +3,9 @@
 **/*.s
 src/.depend
 
+/.idea
+/.vscode
+
 # Built binary
 src/stockfish*
 src/-lstdc++.res
